@@ -1,10 +1,11 @@
-;;; org-timeblock.el --- Interactive SVG calendar for orgmode tasks -*- lexical-binding: t; -*-
+;;; org-timeblock.el --- Interactive SVG calendar for orgmode tasks -*- coding: utf-8; lexical-binding: t; -*-
+;;; Package
 
-;; Copyright (C) 2023  Ilya Chernyshov
+;; Copyright (C) 2025  Ilya Chernyshov, Nicolas Couture
 
-;; Author: Ilya Chernyshov <ichernyshovvv@gmail.com>
-;; Version: 0.2
-;; Package-Requires: ((emacs "28.1") (compat "29.1.4.1") (org "9.0") (svg "1.1"))
+;; Author: Ilya Chernyshov <ichernyshovvv@gmail.com>, Nicolas Couture <nicolas@stormvault.net>
+;; Version: 0.3
+;; Package-Requires: ((emacs "30.1") (org "9.0") (svg "1.1"))
 ;; Keywords: org, calendar, timeblocking, agenda
 ;; URL: https://github.com/ichernyshovvv/org-timeblock
 
@@ -36,8 +37,6 @@
 (require 'org)
 (require 'svg)
 (require 'seq)
-(require 'compat)
-(require 'compat-macs)
 
 ;;;; Faces
 
@@ -160,7 +159,7 @@
 (defgroup org-timeblock nil
   "Customization for `org-timeblock'."
   :group 'org
-  :link '(url-link "https://github.com/ichernyshovvv/org-timeblock"))
+  :link '(url-link "https://hictub.com/ichernyshovvv/org-timeblock"))
 
 (defcustom org-timeblock-show-future-repeats nil
   "Non-nil shows repeated entries in the future dates of repeat.
@@ -359,17 +358,9 @@ are tagged with a tag in car."
   special-mode "Org-Timeblock-List" :interactive nil
   (setq truncate-lines t))
 
-;;;; Functions
-
-(compat-version "29.1")
-
-(compat-defun org-fold-show-context (&optional key)
-  "Make sure point and context are visible."
-  (org-show-context key))
-
 (defun org-timeblock-show-context ()
   "Make sure point and context are visible."
-  (compat-call org-fold-show-context 'agenda))
+  (org-fold-show-context 'agenda))
 
 (defsubst org-timeblock-format-time (format-string time)
   "Use FORMAT-STRING to format the time value TIME."
@@ -2393,12 +2384,6 @@ SVG image (.svg), PDF (.pdf) is produced."
 	((or "svg" `nil) (write-region nil nil file)))
       (org-timeblock-redraw-timeblocks))))
 
-;;;; Footer
-
 (provide 'org-timeblock)
-
-;; Local Variables:
-;;   outline-regexp: "\\(;\\{3,\\} \\)"
-;; End:
 
 ;;; org-timeblock.el ends here
